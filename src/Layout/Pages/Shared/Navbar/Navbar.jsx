@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../../../../assets/music_logo_design__3_-removebg-preview.png'
 const Navbar = () => {
     const navOptions = <>
         <li><Link>Home</Link></li>
         <li><Link>Instructors</Link></li>
         <li><Link>Classes</Link></li>
         <li><Link>DASHBOARD</Link></li>
-        <li><Link>Login</Link></li> 
+        <li><Link>Login</Link></li>
+        <li><Link>profile</Link></li>
     </>
     return (
         <>
-            <div className="navbar bg-red-400 text-white">
+            <div className="navbar h-20 max-w-screen-xl">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -20,10 +22,11 @@ const Navbar = () => {
                             {navOptions}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+                        <img className='w-20' src={logo} alt="logo" />
+                        <h1 className='text-lg text-center'>Melody Music<br/> Academy</h1>
                 </div>
-                <div className="navbar-end hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1 flex gap-8 uppercase">
+                <div className="navbar-center hidden lg:flex">
+                    <ul className="menu menu-horizontal px-1 flex gap-4 uppercase">
                         {navOptions}
                     </ul>
                 </div>
