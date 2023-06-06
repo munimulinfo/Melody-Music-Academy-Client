@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import logo from '../../../../assets/music_logo_design__3_-removebg-preview.png'
 const Navbar = () => {
     const navOptions = <>
-        <li><Link>Home</Link></li>
+        <li><Link to='/'>Home</Link></li>
         <li><Link>Instructors</Link></li>
         <li><Link>Classes</Link></li>
         <li><Link>DASHBOARD</Link></li>
-        <li><Link>Login</Link></li>
+        <li><Link to='/login'>Login</Link></li>
         <li><Link>profile</Link></li>
     </>
     return (
@@ -22,8 +22,8 @@ const Navbar = () => {
                             {navOptions}
                         </ul>
                     </div>
-                        <img className='w-20' src={logo} alt="logo" />
-                        <h1 className='text-lg text-center'>Melody Music<br/> Academy</h1>
+                    <img className='w-20' src={logo} alt="logo" />
+                    <h1 className='text-lg text-center'>Melody Music<br /> Academy</h1>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 flex gap-4 uppercase">
