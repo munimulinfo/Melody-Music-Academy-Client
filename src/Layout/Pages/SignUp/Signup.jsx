@@ -4,23 +4,23 @@ import signupanimation from '../../../assets/105639-signup.json'
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../Providers/AuthProviders';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 const Signup = () => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit,reset, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
-    const onSubmit = data => {
 
+    const onSubmit = data => {
         createUser(data.email, data.password)
         .then(result => {
-
             const loggedUser = result.user;
             console.log(loggedUser);
 
             updateUserProfile(data.name, data.photoURL)
                 .then(() => {
                     const saveUser = { name: data.name, email: data.email }
-                    fetch('https://bistro-boss-server-fawn.vercel.app/users', {
+                    fetch('http://localhost:5000/users', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json'
@@ -29,6 +29,7 @@ const Signup = () => {
                     })
                         .then(res => res.json())
                         .then(data => {
+                            console.log(data);
                             if (data.insertedId) {
                                 reset();
                                 Swal.fire({
@@ -46,7 +47,6 @@ const Signup = () => {
         })
         console.log(data);
     };
-
     return (
         <div className='flex flex-col lg:flex-row justify-center items-center gap-10 px-10'>
 
@@ -64,9 +64,8 @@ const Signup = () => {
                         <label className="label">
                             <span className="label-text">Photo</span>
                         </label>
-                        <input type="text" {...register("photo", { required: true })} placeholder="add a photo" className="input input-bordered" />
-                        {errors.photo && <span className='text-purple-600 animate-pulse'>Photo is required</span>}
-                        {errors.photo && <span className='text-purple-600 animate-pulse'>Photo is required</span>}
+                        <input type="text" {...register("photoURL", { required: true })} placeholder="add a photo" className="input input-bordered" />
+                        {errors.photoURL && <span className='text-purple-600 animate-pulse'>Photo is required</span>}
                     </div>
                     <div className="form-control">
                         <label className="label">
@@ -87,12 +86,12 @@ const Signup = () => {
                     </div>
                     <div className="form-control">
                         <label className="flex gap-4 cursor-pointer mt-4">
-                            <input type="checkbox" className="checkbox" />
+                            <input type="checkbox" className="checkbox" required/>
                             <span className="label-text">Remember me</span>
                         </label>
                     </div>
                     <div className="form-control mt-6">
-                        <button className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border-0 text-white">Sign Up</button>
+                        <input type="submit" value="Sign Up" className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border-0 text-white"/>
                     </div>
                     {/* {error && <p className='text-center text-error mb-2'>{error}</p>} */}
                 </form>
