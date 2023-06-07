@@ -1,33 +1,53 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Lottie from "lottie-react";
 import loginanimation from '../../../assets/119048-login-verification.json';
 import { FaGoogle } from 'react-icons/fa';
+import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../../Providers/AuthProviders';
 const Login = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { signIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+    const onSubmit = data => {
+        const email = data?.email;
+        const password = data?.password;
+        signIn(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login successfully.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate(from, { replace: true });
+            })
+    };
+
     return (
         <div className='flex flex-col lg:flex-row justify-center items-center gap-10 px-10'>
             <div className='w-1/2 px-12'>
-                <form className="w-full  mt-32 mb-10 p-10 border border-purple-500 bg-white rounded-lg text-black">
+                <form onSubmit={handleSubmit(onSubmit)} className="w-full  mt-32 mb-10 p-10 border border-purple-500 bg-white rounded-lg text-black">
                     <h3 className='text-2xl text-center font-bold mb-5'>Login Here</h3>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Email</span>
                         </label>
-                        <input type="email" name='email' placeholder="email" className="input input-bordered" required />
+                        <input type="email" {...register("email", { required: true })} placeholder="email" className="input input-bordered" />
+                        {errors.email && <span className='text-purple-600 animate-pulse'>please provide your email</span>}
                     </div>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type="password" name='password' placeholder="password" className="input input-bordered" required />
+                        <input type="password" {...register("password", { required: true })} placeholder="password" className="input input-bordered" />
+                        {errors.password && <span className='text-purple-600 animate-pulse'>please provide your password</span>}
                         <label className="label">
-                            <Link className="underline  text-error">Forgot password?</Link>
-                        </label>
-                    </div>
-                    <div className="form-control">
-                        <label className="flex gap-4 cursor-pointer mt-4">
-                            <input type="checkbox" className="checkbox" />
-                            <span className="label-text">Remember me</span>
+                            <Link className="underline  text-rose-500">Forgot password?</Link>
                         </label>
                     </div>
                     <div className="form-control mt-6 mb-3">
@@ -45,9 +65,9 @@ const Login = () => {
                 </div>
             </div>
             <div className='w-1/2 px-20 py-16'>
-            <Lottie animationData={loginanimation} loop={true} />;
+                <Lottie animationData={loginanimation} loop={true} />;
             </div>
-            </div>
+        </div>
 
     );
 };
