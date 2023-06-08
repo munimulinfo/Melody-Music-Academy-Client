@@ -2,27 +2,25 @@ import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import logo from '../assets/image/music_logo_design__3_-removebg-preview.png';
 import useAdmin from '../Hooks/useAdmin';
+import useInstructor from '../Hooks/useInstructor';
 
 const Dashboard = () => {
     const [isAdmin] = useAdmin();
+    const [isInstructor] = useInstructor();
     const navOptions = <>
         <li><Link to='/'>Home</Link></li>
-        {/* {
-          <li><Link>Selected Classes</Link></li>
-          <li><Link>Enrolled Classes</Link></li>
-        }
         {
-        <li><Link>Add a Class</Link></li>
-        <li><Link>My Classes</Link></li>
-        <li><Link>Enrolled Classes</Link></li>
-        } */}
-
-        {isAdmin && <><li><Link to='/dashboard/manageuser'>Manage Users</Link></li>
-            <li><Link>Manage Classes</Link></li></>
+            isAdmin ? <>
+                <li><Link to='/dashboard/manageuser'>Manage Users</Link></li>
+                <li><Link>Manage Classes</Link></li></>
+                : isInstructor ? <>
+                    <li><Link to='/dashboard/addaclass'>Add a Class</Link></li>
+                    <li><Link to='/dashboard/myclasses'>My Classes</Link></li>
+                    <li><Link to='/'>Enrolled Classes</Link></li></>
+                    : <>
+                        <li><Link>Selected Classes</Link></li>
+                        <li><Link>Enrolled Classes</Link></li></>
         }
-
-
-
     </>
     return (
         <div>
