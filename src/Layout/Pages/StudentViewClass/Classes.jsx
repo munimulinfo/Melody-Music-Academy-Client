@@ -27,7 +27,7 @@ const Classes = () => {
                             <p className='text-lg font-semibold font-sans '>Available seats: {aprovedClass?.seats}</p>
                             <p className='text-lg font-semibold font-sans '>Price: ${aprovedClass?.price}</p>
                             <div className="card-actions justify-end">
-                                <button className="btn bg-gradient-to-r text-white from-rose-400 via-fuchsia-500 to-indigo-500">Book now</button>
+                               <button className="btn bg-purple-500 bordr-0 text-white">Select</button>
                             </div>
                         </div>
                     </div>)
