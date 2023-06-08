@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import logo from '../../../../assets/music_logo_design__3_-removebg-preview.png'
 import { AuthContext } from '../../../../Providers/AuthProviders';
 import useAdmin from '../../../../Hooks/useAdmin';
+import useInstructor from '../../../../Hooks/useInstructor';
 const Navbar = () => {
   const {user, logOut} = useContext(AuthContext);
   const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructor();
     const handleLogOut = () => {
         logOut()
             .then(() => { })
@@ -13,9 +15,12 @@ const Navbar = () => {
     }
     const navOptions = <>
         <li><Link to='/'>Home</Link></li>
-        <li><Link>Instructors</Link></li>
-        <li><Link>Classes</Link></li>
-        <li><Link to='dashboard'>DASHBOARD</Link></li>
+        <li><Link to='/instructors'>Instructors</Link></li>
+        <li><Link to='/classes'>Classes</Link></li>
+        {
+          isAdmin ? <li><Link to='/dashboard/manageuser'>DASHBOARD</Link></li> : isInstructor ? <li><Link to='/dashboard/myclasses'>DASHBOARD</Link></li> : <li><Link to='/dashboard/selectedclass'>DASHBOARD</Link></li>
+        }
+        
         {
             user ? <li>nissan</li> : <li><Link to='/login'>Login</Link></li>
         }

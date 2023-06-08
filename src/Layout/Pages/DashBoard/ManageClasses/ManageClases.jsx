@@ -1,9 +1,71 @@
 import React from 'react';
+import useAxiosSecure from '../../../../Hooks/useAxiosSequre';
+import { useQuery } from '@tanstack/react-query';
+import { FaRegTrashAlt } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const ManageClases = () => {
+
+    const [axiosSecure] = useAxiosSecure();
+    const { data: allclass = [], refetch } = useQuery(['allclass'], async () => {
+        const res = await axiosSecure.get('/allclasses')
+        return res.data;
+    })
+    const handleAprovedClass = (id) =>{
+        fetch(`http://localhost:5000/allclass/aproved/${id}`, {
+            method: 'PATCH'
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.modifiedCount){
+                refetch();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'aproved this class!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            }
+        })
+    }
+console.log(allclass);
     return (
-        <div>
-            <h1>this is manage users</h1>
+        <div className='mt-16 mb-10'>
+           <div className="overflow-x-auto">
+                <table className="table table-zebra w-full">
+                    {/* head */}
+                    <thead>
+                        <tr className='uppercase'>
+                            <th>Sl</th>
+                            <th>image</th>
+                            <th>class Name</th>
+                            <th>Instructor Name</th>
+                            <th>Instructor Email</th>
+                            <th>price</th>
+                            <th>seats</th>
+                            <th>status</th>
+                            <th>delet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            allclass?.map((singleclass, index) => <tr key={singleclass._id}>
+                                <td>{index + 1}</td>
+                                <td><img className='w-12' src={singleclass?.image} alt="class" /> </td>
+                                <td>{singleclass?.classname}</td>
+                                <td>{singleclass?.instructorname}</td>
+                                <td>{singleclass?.instructoremail}</td>
+                                <td>{singleclass?.price}</td>
+                                <td>{singleclass.seats}</td>
+                                <td><button onClick={() => handleAprovedClass(singleclass._id)} className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500   rounded text-white p-2'>{singleclass.status}</button></td>
+                                <td><button onClick={() => handleDeletItems(user?._id)} className='bg-red-500 w-10 rounded text-white p-2'><FaRegTrashAlt className=' text-2xl' /></button></td>
+                            </tr>)
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

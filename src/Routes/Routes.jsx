@@ -14,6 +14,8 @@ import Sleceted from "../Layout/Pages/DashBoard/SelectedClasses/Sleceted";
 import EnroledClasses from "../Layout/Pages/DashBoard/EnroledClassesStudent/EnroledClasses";
 import InstructorEnrool from "../Layout/Pages/DashBoard/InstructorEnrollClasses/instructorEnrool";
 import PrivateRoute from "./PrivateRoute";
+import Instructros from "../Layout/Pages/Instructros/Instructros";
+import Classes from "../Layout/Pages/StudentViewClass/Classes";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
             {
                 path: 'signup',
                 element: <Signup></Signup>
+            },
+            {
+                path: 'instructors',
+                element: <Instructros></Instructros>
+            },
+            {
+                path: 'classes',
+                element: <Classes></Classes>
             }
         ]
     },

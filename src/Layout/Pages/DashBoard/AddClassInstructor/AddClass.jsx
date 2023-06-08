@@ -6,39 +6,40 @@ import Swal from 'sweetalert2';
 const img_hosting_token = import.meta.env.VITE_Image_Upload_Token;
 
 const AddClass = () => {
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [axiosSecure] = useAxiosSecure();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const img_hosting_url = `https://api.imgbb.com/1/upload?expiration=600&key=${img_hosting_token}`
+    const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`
     const onSubmit = data => {
         console.log(data);
         const formData = new FormData();
-         formData.append('image', data.classimage[0])
-         fetch(img_hosting_url,{
+        formData.append('image', data.classimage[0])
+        fetch(img_hosting_url, {
             method: 'POST',
             body: formData
-         })
-         .then(res => res.json())
-         .then(imageResponse => {
-            if(imageResponse.success){
-                const imgURL = imageResponse.data.display_url;
-                const {classname, instructoremail, instructorname, price, seats } = data;
-                const newItem = {classname, instructoremail, instructorname, seats: parseInt(seats), price: parseFloat(price), image:imgURL, status:'pending'}
-                console.log(newItem);
-                axiosSecure.post('/allclass', newItem)
-                .then(data => {
-                    reset();
-                     if(data.data?.insertedId){
-                        Swal.fire(
-                            'Good job!',
-                            'Your Class add succesfull',
-                            'success'
-                          )
-                     }
-                     console.log('after add a new data', data.data);
-                })
-            }
-         })
+        })
+            .then(res => res.json())
+            .then(imageResponse => {
+                console.log(imageResponse);
+                if (imageResponse.success) {
+                    const imgURL = imageResponse.data.display_url;
+                    const { classname, instructoremail, instructorname, price, seats } = data;
+                    const newItem = { classname, instructoremail, instructorname, seats: parseInt(seats), price: parseFloat(price), image: imgURL, status: 'pending' }
+                    console.log(newItem);
+                    axiosSecure.post('/allclass', newItem)
+                        .then(data => {
+                            reset();
+                            if (data.data?.insertedId) {
+                                Swal.fire(
+                                    'Good job!',
+                                    'Your Class add succesfull',
+                                    'success'
+                                )
+                            }
+                            console.log('after add a new data', data.data);
+                        })
+                }
+            })
     }
     return (
         <div className='px-32'>
@@ -55,7 +56,7 @@ const AddClass = () => {
                     <label className="label">
                         <span className="label-text">Class Image</span>
                     </label>
-                    <input type="file" {...register("classimage", { required: true })}  className="file-input file-input-bordered file-input-primary w-full" />
+                    <input type="file" {...register("classimage", { required: true })} className="file-input file-input-bordered file-input-primary w-full" />
                     {errors.classimage && <span className='text-purple-600 animate-pulse'>Class Image is required</span>}
                 </div>
                 <div className="form-control">
@@ -85,8 +86,8 @@ const AddClass = () => {
                     {errors.price && <span className='text-purple-600 animate-pulse'>Price is required</span>}
                 </div>
                 <div className="form-control mt-6">
-                        <input type="submit" value="Add Class" className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border-0 text-white" />
-                    </div>
+                    <input type="submit" value="Add Class" className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border-0 text-white" />
+                </div>
             </form>
 
         </div>
