@@ -16,10 +16,10 @@ const Dashboard = () => {
                 : isInstructor ? <>
                     <li><Link to='/dashboard/addaclass'>Add a Class</Link></li>
                     <li><Link to='/dashboard/myclasses'>My Classes</Link></li>
-                    <li><Link to='/'>Enrolled Classes</Link></li></>
+                    <li><Link to='/dashboard/instructorEnrool'>Enrolled Classes</Link></li></>
                     : <>
-                        <li><Link>Selected Classes</Link></li>
-                        <li><Link>Enrolled Classes</Link></li></>
+                        <li><Link to='/dashboard/selectedclass'>Selected Classes</Link></li>
+                        <li><Link to='/dashboard/enroolclass'>Enrolled Classes</Link></li></>
         }
     </>
     return (

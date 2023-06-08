@@ -11,6 +11,9 @@ import AddClass from "../Layout/Pages/DashBoard/AddClassInstructor/AddClass";
 import MyClasses from "../Layout/Pages/DashBoard/InstructorClasese/MyClasses";
 import InstructorRoute from "./InstructorRoute";
 import ManageClases from "../Layout/Pages/DashBoard/ManageClasses/ManageClases";
+import Sleceted from "../Layout/Pages/DashBoard/SelectedClasses/Sleceted";
+import EnroledClasses from "../Layout/Pages/DashBoard/EnroledClassesStudent/EnroledClasses";
+import InstructorEnrool from "../Layout/Pages/DashBoard/InstructorEnrollClasses/instructorEnrool";
 
 const router = createBrowserRouter([
     {
@@ -50,6 +53,18 @@ const router = createBrowserRouter([
             {
                 path: 'myclasses',
                 element: <InstructorRoute><MyClasses></MyClasses></InstructorRoute>
+            },
+            {
+                path: 'instructorEnrool',
+                element: <InstructorEnrool></InstructorEnrool>
+            },
+            {
+                path: 'selectedclass',
+                element: <Sleceted></Sleceted>
+            },
+            {
+                path: 'enroolclass',
+                element: <EnroledClasses></EnroledClasses>
             }
         ]
     }
