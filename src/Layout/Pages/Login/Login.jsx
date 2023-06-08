@@ -1,11 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Lottie from "lottie-react";
 import loginanimation from '../../../assets/119048-login-verification.json';
 import { FaGoogle } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../Providers/AuthProviders';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 const Login = () => {
+    const [show, setShow] = useState();
+    const handleShow = () => {
+        setShow(!show);
+    }
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { signIn } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -40,15 +45,14 @@ const Login = () => {
                         <input type="email" {...register("email", { required: true })} placeholder="email" className="input input-bordered" />
                         {errors.email && <span className='text-purple-600 animate-pulse'>please provide your email</span>}
                     </div>
-                    <div className="form-control">
+                    <div className="form-control relative">
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type="password" {...register("password", { required: true })} placeholder="password" className="input input-bordered" />
+                        <input type={show ?'text':"password" } {...register("password", { required: true })} placeholder="password" className="input input-bordered" />
+                        <span onClick={handleShow} className='absolute top-12 right-4 text-[22px]'>{show ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}</span>
                         {errors.password && <span className='text-purple-600 animate-pulse'>please provide your password</span>}
-                        <label className="label">
-                            <Link className="underline  text-rose-500">Forgot password?</Link>
-                        </label>
+
                     </div>
                     <div className="form-control mt-6 mb-3">
                         <button className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border-0 text-white">Login</button>

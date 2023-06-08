@@ -6,7 +6,7 @@ const Navbar = () => {
         <li><Link to='/'>Home</Link></li>
         <li><Link>Instructors</Link></li>
         <li><Link>Classes</Link></li>
-        <li><Link>DASHBOARD</Link></li>
+        <li><Link to='dashboard'>DASHBOARD</Link></li>
         <li><Link to='/login'>Login</Link></li>
         <li><Link>profile</Link></li>
     </>
@@ -21,12 +21,12 @@ const Navbar = () => {
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             {navOptions}
                         </ul>
-                    </div>
-                    <img className='w-20' src={logo} alt="logo" />
-                    <h1 className='text-lg text-center'>Melody Music<br /> Academy</h1>
+                    </div> 
+                            <img className='lg:w-20 w-12' src={logo} alt="logo" />
+                            <span className='lg:text-2xl text-transparent bg-clip-text  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>Melody Music Academy</span>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1 flex gap-4 uppercase">
+                    <ul className="menu menu-horizontal px-1 flex gap-4 uppercase ">
                         {navOptions}
                     </ul>
                 </div>

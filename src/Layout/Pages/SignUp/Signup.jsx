@@ -7,20 +7,24 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 const Signup = () => {
-    const [error, setError] = useState("");
-    const [mistake, setMistake] = useState("");
+    // password visible or hidden function implement
     const [show, setShow] = useState(false);
+    const [shows, setShows] = useState(false);
+    const handlevisiblepaswordfirst = () => {
+        setShows(!shows);
+    }
     const handlevisiblepasword = () => {
         setShow(!show);
     }
+
+    // user registration from handle react hook form and save data on server 
+    const [error, setError] = useState("");
+    const [mistake, setMistake] = useState("");
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
-
     const onSubmit = data => {
         if (data.password == data.confrimpassword) {
-
-            console.log('majamm');
             createUser(data.email, data.password)
                 .then(result => {
                     const loggedUser = result.user;
@@ -90,8 +94,8 @@ const Signup = () => {
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type={show ? 'text' : "password"} {...register("password", { required: true, pattern: /(?=.*[A-Z])/, minLength: 6, })} placeholder="password" className="input input-bordered" />
-                        <span onClick={handlevisiblepasword} className='absolute top-12 right-4 text-2xl'>{show ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}</span>
+                        <input type={shows ? 'text' : "password"} {...register("password", { required: true, pattern: /(?=.*[A-Z])/, minLength: 6, })} placeholder="password" className="input input-bordered" />
+                        <span onClick={handlevisiblepaswordfirst} className='absolute top-12 right-4 text-[22px]'>{shows ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}</span>
                         {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
                         {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
                         {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase.</p>}
@@ -102,16 +106,10 @@ const Signup = () => {
                             <span className="label-text">Confrim Password</span>
                         </label>
                         <input type={show ? 'text' : "password"} {...register("confrimpassword", { required: true })} placeholder="Re type password" className="input input-bordered" ></input>
-                        <span onClick={handlevisiblepasword} className='absolute top-12 right-4 text-2xl'>{show ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}</span>
+                        <span onClick={handlevisiblepasword} className='absolute top-12 right-4 text-[22px]'>{show ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}</span>
                         {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
                         {error && <p className='text-error mb-2'>{error}</p>}
-                    </div>
-                    <div className="form-control">
-                        <label className="flex gap-4 cursor-pointer mt-4">
-                            <input type="checkbox" className="checkbox" required />
-                            <span className="label-text">Remember me</span>
-                        </label>
-                    </div>
+                    </div>                  
                     <div className="form-control mt-6">
                         <input type="submit" value="Sign Up" className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border-0 text-white" />
                     </div>

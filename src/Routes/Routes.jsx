@@ -3,6 +3,9 @@ import Main from "../Layout/Main";
 import Home from "../Layout/Pages/Home/Home/Home";
 import Login from "../Layout/Pages/Login/Login";
 import Signup from "../Layout/Pages/SignUp/Signup";
+import Dashboard from "../Layout/Dashboard";
+import ManageUser from "../Layout/Pages/DashBoard/ManageUser/ManageUser";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +26,16 @@ const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: 'dashboard',
+        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        children: [
+            {
+                path: 'manageuser',
+                element: <ManageUser></ManageUser>
+            }
+        ]
+    }
 ]);
 
 export default router;
