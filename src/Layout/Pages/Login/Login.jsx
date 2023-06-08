@@ -6,22 +6,28 @@ import { FaGoogle } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../Providers/AuthProviders';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 const Login = () => {
-    const [show, setShow] = useState();
-    const handleShow = () => {
-        setShow(!show);
-    }
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const { signIn } = useContext(AuthContext);
+    // Authcontext import auth info and 2 hokks
+    const { signIn, googleSignIn } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
+    const [error, setError] = useState();
+    // visible and hidden function implement password field
+    const [show, setShow] = useState();
+    const handleShow = () => {
+        setShow(!show);
+    };
+    /// login form data collect and user login
+    const { register, handleSubmit,reset, formState: { errors } } = useForm();
     const onSubmit = data => {
         const email = data?.email;
         const password = data?.password;
         signIn(email, password)
             .then(result => {
                 const user = result.user;
+                 reset();
                 console.log(user);
                 Swal.fire({
                     icon: 'success',
@@ -31,7 +37,39 @@ const Login = () => {
                 });
                 navigate(from, { replace: true });
             })
+            .catch(err => {
+                setError(err.message);
+                console.log(err.message);
+            })
     };
+    // handle google login or sign in  and data save server
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+            .then(result => {
+                const loggedInUser = result.user;
+                console.log(loggedInUser);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login successfully.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                const saveUser = { name: loggedInUser.displayName, email: loggedInUser.email }
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(saveUser)
+                })
+                    .then(res => res.json())
+                    .then(() => {
+                        navigate(from, { replace: true });
+                    })
+            }).catch(err => {
+                setError(err.message);
+            })
+    }
 
     return (
         <div className='flex flex-col lg:flex-row justify-center items-center gap-10 px-10'>
@@ -62,7 +100,7 @@ const Login = () => {
                 </form>
                 <div className='flex justify-center items-center gap-8 mb-24'>
 
-                    <li className="btn btn-outline border-purple-500 w-full flex ">
+                    <li onClick={handleGoogleSignIn} className="btn btn-outline border-purple-500 w-full flex ">
                         <FaGoogle className='text-xl text-lime-400'></FaGoogle>
                         <Link>Google Login</Link>
                     </li>
