@@ -5,7 +5,6 @@ import Login from "../Layout/Pages/Login/Login";
 import Signup from "../Layout/Pages/SignUp/Signup";
 import Dashboard from "../Layout/Dashboard";
 import ManageUser from "../Layout/Pages/DashBoard/ManageUser/ManageUser";
-import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import AddClass from "../Layout/Pages/DashBoard/AddClassInstructor/AddClass";
 import MyClasses from "../Layout/Pages/DashBoard/InstructorClasese/MyClasses";
@@ -14,6 +13,7 @@ import ManageClases from "../Layout/Pages/DashBoard/ManageClasses/ManageClases";
 import Sleceted from "../Layout/Pages/DashBoard/SelectedClasses/Sleceted";
 import EnroledClasses from "../Layout/Pages/DashBoard/EnroledClassesStudent/EnroledClasses";
 import InstructorEnrool from "../Layout/Pages/DashBoard/InstructorEnrollClasses/instructorEnrool";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {

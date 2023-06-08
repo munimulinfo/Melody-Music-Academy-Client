@@ -12,7 +12,7 @@ const Dashboard = () => {
         {
             isAdmin ? <>
                 <li><Link to='/dashboard/manageuser'>Manage Users</Link></li>
-                <li><Link>Manage Classes</Link></li></>
+                <li><Link to='/dashboard/manageclasses'>Manage Classes</Link></li></>
                 : isInstructor ? <>
                     <li><Link to='/dashboard/addaclass'>Add a Class</Link></li>
                     <li><Link to='/dashboard/myclasses'>My Classes</Link></li>
@@ -38,7 +38,7 @@ const Dashboard = () => {
                     <h1 className='text-2xl text-center text-transparent bg-clip-text  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>Melody Music Academy</h1>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1 gap-8 uppercase">
+                    <ul className="menu menu-horizontal px-1 gap-4 uppercase">
                         {navOptions}
                     </ul>
                 </div>
