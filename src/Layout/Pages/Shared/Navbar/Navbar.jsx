@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../../assets/music_logo_design__3_-removebg-preview.png'
+import { AuthContext } from '../../../../Providers/AuthProviders';
+import useAdmin from '../../../../Hooks/useAdmin';
 const Navbar = () => {
+  const {user, logOut} = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.log(error));
+    }
     const navOptions = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link>Instructors</Link></li>
         <li><Link>Classes</Link></li>
         <li><Link to='dashboard'>DASHBOARD</Link></li>
-        <li><Link to='/login'>Login</Link></li>
-        <li><Link>profile</Link></li>
+        {
+            user ? <li>nissan</li> : <li><Link to='/login'>Login</Link></li>
+        }
+       
+        {
+          user &&  <li><button onClick={handleLogOut}>LogOut</button></li>
+        }
     </>
     return (
         <>

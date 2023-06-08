@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { AuthContext } from "../Providers/AuthProviders";
 import useAdmin from "../Hooks/useAdmin";
 
-
 const AdminRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
     const [isAdmin, isAdminLoading] = useAdmin();
