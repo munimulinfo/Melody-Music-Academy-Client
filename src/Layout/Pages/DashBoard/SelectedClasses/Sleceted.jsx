@@ -2,9 +2,11 @@ import React from 'react';
 import useSilectClass from '../../../../Hooks/useSelectClass';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const Sleceted = () => {
     const [selectclass, refetch] = useSilectClass();
+    const navigate = useNavigate();
     const handleDeletSlectClass = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -65,7 +67,7 @@ const Sleceted = () => {
                                 <td>{singleclass?.instructoremail}</td>
                                 <td>${singleclass?.price}</td>
                                 <td>{singleclass.seats}</td>
-                                <td><button onClick={() => handleAprovedClass(singleclass._id)} className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500   rounded text-white p-2'>PAY</button></td>
+                                <td><button onClick={ () => navigate(`/dashboard/payment/${singleclass?._id}`)} className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500   rounded text-white p-2'>PAY</button></td>
                                 <td><button onClick={() => handleDeletSlectClass(singleclass?._id)} className='bg-red-500 w-10 rounded text-white p-2'><FaRegTrashAlt className=' text-2xl' /></button></td>
                             </tr>)
                         }

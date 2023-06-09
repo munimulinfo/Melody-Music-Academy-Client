@@ -17,6 +17,7 @@ import PrivateRoute from "./PrivateRoute";
 import Instructros from "../Layout/Pages/Instructros/Instructros";
 import Classes from "../Layout/Pages/StudentViewClass/Classes";
 import UpdateClass from "../Layout/Pages/DashBoard/InstructorUpdateClass/UpdateClass";
+import Payment from "../Layout/Pages/DashBoard/PaymentClasses/Payment";
 
 const router = createBrowserRouter([
     {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
                 path: 'updateclass/:id',
                 element: <UpdateClass></UpdateClass>,
              
+            },
+            {
+                path: 'payment/:id',
+                element: <Payment></Payment>
             }
 
         ]

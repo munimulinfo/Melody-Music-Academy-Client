@@ -48,7 +48,7 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end">
                     {
-                        user ? <img className='lg:w-14 w-10 rounded-s-full mr-4' src={user?.photoURL} alt="user" /> : <button className='btn btn-sm btn-secondary lg:btn-md'><Link to='/login'>Login</Link></button>
+                        user ? <img className='lg:w-14 w-10 rounded-full h-14 mr-4' src={user?.photoURL} alt="user" /> : <button className='btn btn-sm btn-secondary lg:btn-md'><Link to='/login'>Login</Link></button>
                     }
                     {
 
