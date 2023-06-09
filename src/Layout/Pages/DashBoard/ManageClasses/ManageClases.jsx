@@ -29,7 +29,43 @@ const ManageClases = () => {
                   })
             }
         })
-    }
+    };
+  
+  const handleDeletClass = (id) => {
+    Swal.fire({
+        title: 'Are you sure this class was delted?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`http://localhost:5000/allclass/${id}`,{
+                method: 'DELETE',
+            })
+                .then(res => res.json())
+                .then(data => {
+                   
+                    if (data.deletedCount > 0){
+                        refetch();
+                        Swal.fire(
+                            'Deleted!',
+                            'this class has been deleted.',
+                            'success'
+                        )      
+                    }
+                })
+        }
+    })
+
+     
+    };
+
+
+
+
 console.log(allclass);
     return (
         <div className='mt-16 mb-10'>
@@ -60,7 +96,7 @@ console.log(allclass);
                                 <td>{singleclass?.price}</td>
                                 <td>{singleclass.seats}</td>
                                 <td><button onClick={() => handleAprovedClass(singleclass._id)} className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500   rounded text-white p-2'>{singleclass.status}</button></td>
-                                <td><button onClick={() => handleDeletItems(user?._id)} className='bg-red-500 w-10 rounded text-white p-2'><FaRegTrashAlt className=' text-2xl' /></button></td>
+                                <td><button onClick={() => handleDeletClass(singleclass?._id)} className='bg-red-500 w-10 rounded text-white p-2'><FaRegTrashAlt className=' text-2xl' /></button></td>
                             </tr>)
                         }
                     </tbody>
