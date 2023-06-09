@@ -21,7 +21,6 @@ const ManageClases = () => {
             if(data.modifiedCount){
                 refetch();
                 Swal.fire({
-                    position: 'top-end',
                     icon: 'success',
                     title: 'aproved this class!',
                     showConfirmButton: false,
@@ -69,6 +68,7 @@ const ManageClases = () => {
 console.log(allclass);
     return (
         <div className='mt-16 mb-10'>
+            <h1 className='text-center text-3xl text-bold font-sans mt-12 mb-16'>All instructor classes are available here<span className='text-purple-500'>({allclass?.length})</span></h1>
            <div className="overflow-x-auto">
                 <table className="table table-zebra w-full">
                     {/* head */}

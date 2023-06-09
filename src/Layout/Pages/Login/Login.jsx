@@ -54,7 +54,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                const saveUser = { name: loggedInUser.displayName, email: loggedInUser.email }
+                const saveUser = { name: loggedInUser?.displayName, email: loggedInUser?.email , image: loggedInUser?.photoURL }
                 fetch('http://localhost:5000/users', {
                     method: 'POST',
                     headers: {

@@ -31,7 +31,7 @@ const Signup = () => {
                     console.log(loggedUser);
                     updateUserProfile(data.name, data.photoURL)
                         .then(() => {
-                            const saveUser = { name: data.name, email: data.email }
+                            const saveUser = { name: data.name, email: data.email, image: data.photoURL}
                             fetch('http://localhost:5000/users', {
                                 method: 'POST',
                                 headers: {
@@ -64,9 +64,9 @@ const Signup = () => {
         }
     };
     return (
-        <div className='flex flex-col lg:flex-row justify-center items-center gap-10 px-10'>
+        <div className='flex flex-col lg:flex-row justify-center items-center gap-10 px-10 mb-32'>
 
-            <div className='w-full lg:px-16'>
+            <div className='w-full lg:px-12'>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-full  mt-32  shadow-xl mb-10 p-8 border border-purple-500 bg-white rounded-lg text-black">
                     <h3 className='text-2xl text-center font-bold mb-5'>Sign up now!</h3>
                     <div className="form-control">

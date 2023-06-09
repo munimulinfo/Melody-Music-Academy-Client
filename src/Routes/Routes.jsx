@@ -16,6 +16,7 @@ import InstructorEnrool from "../Layout/Pages/DashBoard/InstructorEnrollClasses/
 import PrivateRoute from "./PrivateRoute";
 import Instructros from "../Layout/Pages/Instructros/Instructros";
 import Classes from "../Layout/Pages/StudentViewClass/Classes";
+import UpdateClass from "../Layout/Pages/DashBoard/InstructorUpdateClass/UpdateClass";
 
 const router = createBrowserRouter([
     {
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'instructors',
-                element: <Instructros></Instructros>
+                element:<Instructros></Instructros>
             },
             {
                 path: 'classes',
@@ -75,9 +76,14 @@ const router = createBrowserRouter([
             {
                 path: 'enroolclass',
                 element: <EnroledClasses></EnroledClasses>
+            },
+            {
+                path: 'updateclass/:id',
+                element: <UpdateClass></UpdateClass>,
+             
             }
+
         ]
     }
 ]);
-
 export default router;

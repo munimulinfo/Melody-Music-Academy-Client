@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import useAxiosSecure from '../../../Hooks/useAxiosSequre';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -7,43 +7,47 @@ import useSilectClass from '../../../Hooks/useSelectClass';
 import Swal from 'sweetalert2';
 
 const Classes = () => {
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [, refetch] = useSilectClass();
     const navigate = useNavigate();
     const location = useLocation();
-
+    // button are disabled
+    const [isDisabled, setIsDisabled] = useState(false);
+    const handleClick = () => {
+        setIsDisabled(true);
+    }
     const [axiosSecure] = useAxiosSecure();
     const { data: allclass = [] } = useQuery(['allclass'], async () => {
         const res = await axiosSecure.get('/allclasses')
         return res.data;
     })
     const aproved = allclass?.filter(classes => classes?.status === 'aproved');
-   
     const handleSelectClass = selectedClass => {
-        const {classname,image,instructoremail,instructorname,price,seats} = selectedClass || {};
-        if(user && user.email){
-            const selectClass = {classname, image, instructoremail, email: user?.email, instructorname, price, seats};
-            fetch('http://localhost:5000/selectclass',{
+        const { classname, image, instructoremail, instructorname, price, seats } = selectedClass || {};
+        if (user && user.email) {
+            const selectClass = { classname, image, instructoremail, email: user?.email, instructorname, price, seats };
+            fetch('http://localhost:5000/selectclass', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
                 },
                 body: JSON.stringify(selectClass)
             })
-            .then(res => res.json())
-            .then(data => {
-                if(data.insertedId){
-                    refetch(); // refetch cart to update the number of items in the cart
-                    Swal.fire({                      
-                        icon: 'success',
-                        title: 'Class selected',
-                        showConfirmButton: false,
-                        timer: 1500
-                      })
-                }
-            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.insertedId) {
+                        refetch(); 
+                        handleClick();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Class selected',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                })
         }
-        else{
+        else {
             Swal.fire({
                 title: 'Please login and select this class',
                 icon: 'warning',
@@ -51,16 +55,16 @@ const Classes = () => {
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Login now!'
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                  navigate('/login', {state: {from: location}})
+                    navigate('/login', { state: { from: location } })
                 }
-              })
+            })
         }
-    }; 
+    };
     return (
         <div>
-            <h1 className='text-3xl text-center mt-24 font-semibold font-sans'>All instructor classes are available here.</h1>
+            <h1 className='text-3xl text-center mt-24 font-semibold font-sans'>All instructors classes are available here.</h1>
             <div className='grid grid-cols-3 gap-10 mt-24 mb-24'>
                 {
                     aproved?.map(aprovedClass => <div
@@ -73,7 +77,7 @@ const Classes = () => {
                             <p className='text-lg font-semibold font-sans '>Available seats: {aprovedClass?.seats}</p>
                             <p className='text-lg font-semibold font-sans '>Price: ${aprovedClass?.price}</p>
                             <div className="card-actions justify-end">
-                               <button onClick={() => handleSelectClass(aprovedClass)} className="btn bg-purple-500 bordr-0 text-white">Select</button>
+                                <button onClick={() => handleSelectClass(aprovedClass)} disabled={isDisabled} className="btn bg-purple-500 border-0 text-white ">Select</button>
                             </div>
                         </div>
                     </div>)
