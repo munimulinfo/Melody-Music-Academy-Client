@@ -7,9 +7,9 @@ const PrivateRoute = ({ children }) => {
     if (loading) {
         return <div>
             <progress className="progress w-56 progress-warning h-8"></progress>
-        </div>;
+        </div>
     }
-    if (user) {
+    if (user?.email) {
         return children;
     }
     return <Navigate to="/login" state={{ from: location}} replace></Navigate>
