@@ -46,7 +46,7 @@ const MyClasses = () => {
 
     return (
         <div className='mt-16'>
-            <h1 className='text-center text-3xl mt-8 mb-16'>Your All Add Classes Here</h1>
+            <h1 className='text-center text-3xl mt-8 mb-16'>Your All Add Classes Here<span className='text-purple-500'>({myclass?.length})</span></h1>
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-full">
                     {/* head */}
@@ -64,7 +64,7 @@ const MyClasses = () => {
                     </thead>
                     <tbody>
                         {
-                            myclass.map((singleclass, index) => <tr key={singleclass._id}>
+                            myclass?.map((singleclass, index) => <tr key={singleclass._id}>
                                 <td>{index + 1}</td>
                                 <td><img className='w-10 rounded' src={singleclass?.image} alt="class" /> </td>
                                 <td>{singleclass?.classname}</td>

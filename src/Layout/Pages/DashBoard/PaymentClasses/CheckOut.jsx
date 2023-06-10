@@ -1,9 +1,10 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../../Providers/AuthProviders';
 import useAxiosSecure from '../../../../Hooks/useAxiosSequre';
-
-const CheckOut = () => {
+import './CheckOut.css';
+const CheckOut = ({ enrolclass,}) => {
+    const { classname, image, instructoremail, instructorname, price, classid , _id } = enrolclass || {};
     const stripe = useStripe();
     const elements = useElements();
     const { user } = useContext(AuthContext);
@@ -12,6 +13,16 @@ const CheckOut = () => {
     const [clientSecret, setClientSecret] = useState('');
     const [processing, setProcessing] = useState(false);
     const [transactionId, setTransactionId] = useState('');
+
+    useEffect(() => {
+        if (price > 0) {
+            axiosSecure.post('/create-payment-intent', {price} )
+                .then(res => {
+                    console.log(res.data.clientSecret)
+                    setClientSecret(res.data.clientSecret);
+                })
+        }
+    }, [price, axiosSecure])
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -28,13 +39,57 @@ const CheckOut = () => {
             type: 'card',
             card
         })
-    
-        if(error){
+
+        if (error) {
             console.log('eror message', error);
             setCardError(error.message);
-        }else{
+        } else {
             console.log('paymentMethod', paymentMethod)
             setCardError('');
+        }
+
+        setProcessing(true)
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
+            clientSecret,
+            {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        email: user?.email || 'unknown',
+                        name: user?.displayName || 'anonymous'
+                    },
+                },
+            },
+        );
+
+        if (confirmError) {
+            console.log(confirmError);
+        }
+        console.log(paymentIntent);
+        setProcessing(false)
+        if (paymentIntent.status === 'succeeded') {
+            setTransactionId(paymentIntent.id);
+
+            const payment = {
+                email: user?.email,
+                transactionId: paymentIntent.id,
+                price,
+                date: new Date(),
+                classname,
+                image,
+                instructoremail,
+                instructorname,
+                payid: _id,
+                classid,
+                status: 'enroolpending',
+            }
+            axiosSecure.post('/payments', payment)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data.result.insertedId) {
+                        // display confirm
+                    }
+                })
         }
     }
     return (
@@ -56,12 +111,12 @@ const CheckOut = () => {
                         },
                     }}
                 />
-                <button className="btn btn-success btn-sm mt-4" type="submit" >
+                <button className="btn btn-success btn-sm mt-4" type="submit" disabled={!stripe || !clientSecret || processing} >
                     Pay
                 </button>
             </form>
-            {/* disabled={!stripe || !clientSecret || processing} */}
             {cardError && <p className="text-red-600 ml-8">{cardError}</p>}
+            {transactionId && <p className="text-green-500">Transaction complete with transactionId: {transactionId}</p>}
         </div>
     );
 };

@@ -95,7 +95,7 @@ const Login = () => {
                     <div className="form-control mt-6 mb-3">
                         <button className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border-0 text-white">Login</button>
                     </div>
-                    {/* {error && <p className='text-center text-error mb-2'>{error}</p>} */}
+                    {error && <p className='text-center text-error mb-2'>{error}</p>}
                     <p className='text-center'>Don't have an account? <Link to='/signup' className='text-purple-600 underline'>Create an account</Link></p>
                 </form>
                 <div className='flex justify-center items-center gap-8 mb-24'>

@@ -11,11 +11,7 @@ const Classes = () => {
     const [, refetch] = useSilectClass();
     const navigate = useNavigate();
     const location = useLocation();
-    // button are disabled
-    const [isDisabled, setIsDisabled] = useState(false);
-    const handleClick = () => {
-        setIsDisabled(true);
-    }
+
     const [axiosSecure] = useAxiosSecure();
     const { data: allclass = [] } = useQuery(['allclass'], async () => {
         const res = await axiosSecure.get('/allclasses')
@@ -23,9 +19,9 @@ const Classes = () => {
     })
     const aproved = allclass?.filter(classes => classes?.status === 'aproved');
     const handleSelectClass = selectedClass => {
-        const { classname, image, instructoremail, instructorname, price, seats } = selectedClass || {};
+        const { classname, image, instructoremail, instructorname, price, seats, _id } = selectedClass || {};
         if (user && user.email) {
-            const selectClass = { classname, image, instructoremail, email: user?.email, instructorname, price, seats };
+            const selectClass = { classname, image, instructoremail, email: user?.email, instructorname, price, seats, classid: _id,};
             fetch('http://localhost:5000/selectclass', {
                 method: 'POST',
                 headers: {
@@ -37,7 +33,6 @@ const Classes = () => {
                 .then(data => {
                     if (data.insertedId) {
                         refetch(); 
-                        handleClick();
                         Swal.fire({
                             icon: 'success',
                             title: 'Class selected',
@@ -63,21 +58,21 @@ const Classes = () => {
         }
     };
     return (
-        <div>
-            <h1 className='text-3xl text-center mt-24 font-semibold font-sans'>All instructors classes are available here.</h1>
+        <div className='px-8'>
+            <h1 className='text-3xl text-center mt-24 font-semibold font-sans'>All instructors classes are available here<span className='text-purple-500'>({aproved?.length})</span></h1>
             <div className='grid grid-cols-3 gap-10 mt-24 mb-24'>
                 {
                     aproved?.map(aprovedClass => <div
                         key={aprovedClass?._id}
-                        className="card card-compact w-full h-[400px] bg-base-100 drop-shadow-lg ">
-                        <figure><img className='w-full' src={aprovedClass?.image} alt="classimage" /></figure>
+                        className="card card-compact w-full border border-purple-300  bg-base-100 drop-shadow-lg ">
+                        <figure><img className='w-full h-64' src={aprovedClass?.image} alt="classimage" /></figure>
                         <div className="card-body">
                             <h2 className='text-lg font-semibold font-sans '>Class Name : {aprovedClass?.classname}</h2>
                             <p className='text-lg font-semibold font-sans '>Instructor name : {aprovedClass?.instructorname}</p>
                             <p className='text-lg font-semibold font-sans '>Available seats: {aprovedClass?.seats}</p>
                             <p className='text-lg font-semibold font-sans '>Price: ${aprovedClass?.price}</p>
                             <div className="card-actions justify-end">
-                                <button onClick={() => handleSelectClass(aprovedClass)} disabled={isDisabled} className="btn bg-purple-500 border-0 text-white ">Select</button>
+                                <button onClick={() => handleSelectClass(aprovedClass)} className="btn bg-purple-500 border-0 text-white ">Select</button>
                             </div>
                         </div>
                     </div>)
