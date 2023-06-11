@@ -18,11 +18,13 @@ import Classes from "../Layout/Pages/StudentViewClass/Classes";
 import UpdateClass from "../Layout/Pages/DashBoard/InstructorUpdateClass/UpdateClass";
 import Payment from "../Layout/Pages/DashBoard/PaymentClasses/Payment";
 import InstructorEnrool from "../Layout/Pages/DashBoard/InstructorEnrollClasses/InstructorEnrool";
+import EroorPage from "../ErorPage/EroorPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Main></Main>,
+        errorElement: <EroorPage></EroorPage>,
         children: [
             {
                 path: '/',
