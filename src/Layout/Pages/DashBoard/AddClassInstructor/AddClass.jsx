@@ -24,14 +24,13 @@ const AddClass = () => {
                 if (imageResponse.success) {
                     const imgURL = imageResponse.data.display_url;
                     const { classname, instructoremail, instructorname, price, seats } = data;
-                    const newItem = { classname, instructoremail, instructorname, seats: parseInt(seats), price: parseFloat(price), image: imgURL, status: 'pending' }
+                    const newItem = { classname, instructoremail, instructorname, seats: parseInt(seats), price: parseFloat(price), image: imgURL, status: 'pending', enroll: 0, userImage: user?.photURL }
                     console.log(newItem);
                     axiosSecure.post('/allclass', newItem)
                         .then(data => {
                             reset();
                             if (data.data?.insertedId) {
                                 Swal.fire(
-                                    'Good job!',
                                     'Your Class add succesfull',
                                     'success'
                                 )

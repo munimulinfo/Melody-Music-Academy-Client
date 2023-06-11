@@ -58,6 +58,7 @@ const MyClasses = () => {
                             <th>price</th>
                             <th>seats</th>
                             <th>status</th>
+                            <th>enroll</th>
                             <th>update class</th>
                             <th>delet</th>
                         </tr>
@@ -69,8 +70,9 @@ const MyClasses = () => {
                                 <td><img className='w-10 rounded' src={singleclass?.image} alt="class" /> </td>
                                 <td>{singleclass?.classname}</td>
                                 <td>{singleclass?.price}</td>
-                                <td>{singleclass.seats}</td>
+                                <td>{singleclass?.seats}</td>
                                 <td className={singleclass.status === 'pending' ? 'text-red-500 text-[18px] text-bold animate-pulse' : 'text-green-600 text-[18px] text-bold'}>{singleclass.status}</td>
+                                <td>{singleclass?.enroll}</td>
                                 <td><button onClick={() => navigate(`/dashboard/updateclass/${singleclass?._id}`)} className='bg-yellow-600  rounded text-white p-2'>update</button></td>
                                 <td> <button onClick={() => handleDeletClass(singleclass?._id)} className='bg-red-500 w-10 rounded text-white p-2'><FaRegTrashAlt className=' text-2xl' /></button></td>
                             </tr>)

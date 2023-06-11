@@ -4,7 +4,7 @@ import { AuthContext } from '../../../../Providers/AuthProviders';
 import useAxiosSecure from '../../../../Hooks/useAxiosSequre';
 import './CheckOut.css';
 const CheckOut = ({ enrolclass,}) => {
-    const { classname, image, instructoremail, instructorname, price, classid , _id } = enrolclass || {};
+    const { classname, image, instructoremail, instructorname, price, classid , _id, seats,enroll } = enrolclass || {};
     const stripe = useStripe();
     const elements = useElements();
     const { user } = useContext(AuthContext);
@@ -72,6 +72,7 @@ const CheckOut = ({ enrolclass,}) => {
 
             const payment = {
                 email: user?.email,
+                studentNmae: user?.displayName,
                 transactionId: paymentIntent.id,
                 price,
                 date: new Date(),
@@ -81,6 +82,8 @@ const CheckOut = ({ enrolclass,}) => {
                 instructorname,
                 payid: _id,
                 classid,
+                seats,
+                enroll,
                 status: 'enroolpending',
             }
             axiosSecure.post('/payments', payment)

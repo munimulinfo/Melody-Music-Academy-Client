@@ -17,7 +17,7 @@ const Sleceted = () => {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
-            if (result.isConfirmed) {
+            if (result.isConfirmed){
                 fetch(`http://localhost:5000/selectclass/${id}`,{
                     method: 'DELETE',
                 })
@@ -40,7 +40,7 @@ const Sleceted = () => {
 
     return (
         <div className='mt-24'>
-            <h1 className=' text-3xl mb-16  text-transparent bg-clip-text  bg-gradient-to-r from-purple-500 to-pink-500 text-center font-sans'>Your All Selected Classes.</h1>
+            <h1 className=' text-3xl mb-16 text-center'>Your All Selected Classes<span className='text-purple-500'>({selectclass?.length})</span></h1>
             <div className="overflow-x-auto mb-16">
                 <table className="table table-zebra w-full">
                     {/* head */}

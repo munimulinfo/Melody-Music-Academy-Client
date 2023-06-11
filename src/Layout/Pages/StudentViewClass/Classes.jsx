@@ -19,9 +19,9 @@ const Classes = () => {
     })
     const aproved = allclass?.filter(classes => classes?.status === 'aproved');
     const handleSelectClass = selectedClass => {
-        const { classname, image, instructoremail, instructorname, price, seats, _id } = selectedClass || {};
-        if (user && user.email) {
-            const selectClass = { classname, image, instructoremail, email: user?.email, instructorname, price, seats, classid: _id,};
+        const { classname, image, instructoremail, instructorname, price, seats, _id, enroll } = selectedClass || {};
+        if (user && user?.email) {
+            const selectClass = { classname, image, instructoremail, email: user?.email, instructorname, price, seats, classid: _id, enroll};
             fetch('http://localhost:5000/selectclass', {
                 method: 'POST',
                 headers: {

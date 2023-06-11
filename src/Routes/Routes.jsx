@@ -12,12 +12,12 @@ import InstructorRoute from "./InstructorRoute";
 import ManageClases from "../Layout/Pages/DashBoard/ManageClasses/ManageClases";
 import Sleceted from "../Layout/Pages/DashBoard/SelectedClasses/Sleceted";
 import EnroledClasses from "../Layout/Pages/DashBoard/EnroledClassesStudent/EnroledClasses";
-import InstructorEnrool from "../Layout/Pages/DashBoard/InstructorEnrollClasses/instructorEnrool";
 import PrivateRoute from "./PrivateRoute";
 import Instructros from "../Layout/Pages/Instructros/Instructros";
 import Classes from "../Layout/Pages/StudentViewClass/Classes";
 import UpdateClass from "../Layout/Pages/DashBoard/InstructorUpdateClass/UpdateClass";
 import Payment from "../Layout/Pages/DashBoard/PaymentClasses/Payment";
+import InstructorEnrool from "../Layout/Pages/DashBoard/InstructorEnrollClasses/InstructorEnrool";
 
 const router = createBrowserRouter([
     {
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
             {
                 path: 'classes',
                 element: <Classes></Classes>
-            }
+            },
         ]
     },
     {
