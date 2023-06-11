@@ -1,8 +1,6 @@
 import React from 'react';
 
 const PopularClass = ({ singleclass }) => {
-    // const {image,classname,instructorname,seats} = singleclass || {};
-
     return (
         <div className="card card-compact w-full border border-purple-300  bg-base-100 drop-shadow-lg ">
             <figure><img className='w-full h-64' src={singleclass?.image} alt="classimage" /></figure>

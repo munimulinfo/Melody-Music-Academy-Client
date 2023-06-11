@@ -13,7 +13,7 @@ import img0 from '../../../../assets/removo image/istockphoto-628606042-612x612-
 const MusicClasses = () => {
     return (
         <div>
-            <h1 className='text-center text-6xl font-bold font-sans uppercase'>Music Classes</h1>
+            <h1 className='text-center text-2xl lg:text-5xl font-bold font-sans uppercase'>Music Classes</h1>
             <h1 className='text-center text-lg mt-4'>EXPLORE OUR MUSIC CLASSES</h1>
             <div className='grid lg:grid-cols-5 justify-center gap-5 mt-16 mb-24 lg:px-8'>
                 <div className='flex justify-center items-center flex-col '>

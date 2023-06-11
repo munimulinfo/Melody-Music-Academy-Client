@@ -6,6 +6,7 @@ import useAdmin from '../../../../Hooks/useAdmin';
 import useInstructor from '../../../../Hooks/useInstructor';
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+    console.log(user);
     const [isAdmin] = useAdmin();
     const [isInstructor] = useInstructor();
     const handleLogOut = () => {

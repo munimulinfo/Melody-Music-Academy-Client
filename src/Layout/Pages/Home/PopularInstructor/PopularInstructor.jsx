@@ -14,7 +14,7 @@ const PopularInstructor = () => {
 
     return (
         <div className='lg:px-8 px-1'>
-            <h1 className='lg:text-4xl text-2xl   text-center mt-24 font-semibold font-sans'>Melody Music Academy Popular Instructors</h1>
+            <h1 className='lg:text-5xl text-2xl text-center mt-24 font-extrabold font-sans'>Melody Music Academy <br/>Popular Instructors</h1>
             <div className='grid lg:grid-cols-3 gap-10 mt-24 mb-24'>
                 {
                     popularInstructors?.map(singleInstructor => <div
