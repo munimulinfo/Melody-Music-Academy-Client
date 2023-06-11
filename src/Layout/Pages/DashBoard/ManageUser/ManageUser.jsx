@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { FaTrashAlt, FaUserShield } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../Hooks/useAxiosSequre";
+import { Helmet } from "react-helmet-async";
 
 const ManageUser = () => {
     const [axiosSecure] = useAxiosSecure();
@@ -78,6 +79,9 @@ const ManageUser = () => {
 
     return (
         <div className="w-full mt-24 mb-24 lg:px-8">
+            <Helmet>
+                <title>Melody Music/Dashbord/admin/MangeUser</title>
+            </Helmet>
             <h3 className="text-3xl mt-16 mb-16 text-center font-semibold my-4">All users are available here<span className="text-purple-600">({users.length})</span></h3>
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-full">

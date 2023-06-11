@@ -1,6 +1,7 @@
 import React from 'react';
 import useAxiosSecure from '../../../Hooks/useAxiosSequre';
 import { useQuery } from '@tanstack/react-query';
+import { Helmet } from 'react-helmet-async';
 
 const Instructros = () => {
 
@@ -15,6 +16,9 @@ const Instructros = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Melody Music/Instructors</title>
+            </Helmet>
             <h1 className='text-center text-3xl text-bold mt-24'> Melody Music Academy All Instructors Here<span className='text-purple-500'>({instructores?.length})</span></h1>
         <div className='grid grid-cols-3 gap-10 mt-24 mb-24 px-8'>
             {

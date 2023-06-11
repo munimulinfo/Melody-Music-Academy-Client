@@ -3,6 +3,7 @@ import useAxiosSecure from '../../../../Hooks/useAxiosSequre';
 import { useQuery } from '@tanstack/react-query';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const ManageClases = () => {
 
@@ -68,6 +69,9 @@ const ManageClases = () => {
     console.log(allclass);
     return (
         <div className='mt-16 mb-10'>
+            <Helmet>
+            <title>Melody Music/Dashbord/admin/manageclases</title>
+            </Helmet>
             <h1 className='text-center text-3xl text-bold font-sans mt-12 mb-16'>All instructor classes are available here<span className='text-purple-500'>({allclass?.length})</span></h1>
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-full">

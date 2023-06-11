@@ -3,6 +3,7 @@ import useSilectClass from '../../../../Hooks/useSelectClass';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const Sleceted = () => {
     const [selectclass, refetch] = useSilectClass();
@@ -40,6 +41,9 @@ const Sleceted = () => {
 
     return (
         <div className='mt-24'>
+            <Helmet>
+            <title>Melody Music/Dashbord/Student/selectclass</title>
+            </Helmet>
             <h1 className=' text-3xl mb-16 text-center'>Your All Selected Classes<span className='text-purple-500'>({selectclass?.length})</span></h1>
             <div className="overflow-x-auto mb-16">
                 <table className="table table-zebra w-full">

@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import useAxiosSecure from '../../../../Hooks/useAxiosSequre';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 const UpdateClass = () => {
     const lodedid = useParams();
     const { id } = lodedid;
@@ -33,6 +34,9 @@ const UpdateClass = () => {
                 }
     return (
         <div className='px-32'>
+            <Helmet>
+            <title>Melody Music/Dashbord/Student/updateclass</title>
+            </Helmet>
             <form onSubmit={handleSubmit(onSubmit)} className="w-full  mt-24  shadow-xl mb-10 p-8 border border-purple-500 bg-white rounded-lg text-black">
                 <h3 className='text-[25px] text-center font-semibold mb-5 text-transparent bg-clip-text  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>Update the class information</h3>
                 <div className="form-control">

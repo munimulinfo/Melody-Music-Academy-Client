@@ -5,13 +5,17 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Providers/AuthProviders';
 import useSilectClass from '../../../Hooks/useSelectClass';
 import Swal from 'sweetalert2';
+import useAdmin from '../../../Hooks/useAdmin';
+import useInstructor from '../../../Hooks/useInstructor';
+import { Helmet } from 'react-helmet-async';
 
 const Classes = () => {
     const { user } = useContext(AuthContext);
     const [, refetch] = useSilectClass();
+    const [isAdmin] = useAdmin();
+    const [isInstructor] = useInstructor();
     const navigate = useNavigate();
     const location = useLocation();
-
     const [axiosSecure] = useAxiosSecure();
     const { data: allclass = [] } = useQuery(['allclass'], async () => {
         const res = await axiosSecure.get('/allclasses')
@@ -59,6 +63,9 @@ const Classes = () => {
     };
     return (
         <div className='px-8'>
+            <Helmet>
+                <title>Melody Music/Classes</title>
+            </Helmet>
             <h1 className='text-3xl text-center mt-24 font-semibold font-sans'>All instructors classes are available here<span className='text-purple-500'>({aproved?.length})</span></h1>
             <div className='grid grid-cols-3 gap-10 mt-24 mb-24'>
                 {
@@ -72,7 +79,7 @@ const Classes = () => {
                             <p className='text-lg font-semibold font-sans '>Available seats: {aprovedClass?.seats}</p>
                             <p className='text-lg font-semibold font-sans '>Price: ${aprovedClass?.price}</p>
                             <div className="card-actions justify-end">
-                                <button onClick={() => handleSelectClass(aprovedClass)} className="btn bg-purple-500 border-0 text-white ">Select</button>
+                                <button disabled={isAdmin || isInstructor} onClick={() => handleSelectClass(aprovedClass)} className="btn bg-purple-500 border-0 text-white ">Select</button>
                             </div>
                         </div>
                     </div>)

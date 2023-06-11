@@ -68,7 +68,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'instructorEnrool',
-                element: <InstructorEnrool></InstructorEnrool>
+                element: <InstructorRoute><InstructorEnrool></InstructorEnrool></InstructorRoute>
             },
             {
                 path: 'selectedclass',
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'updateclass/:id',
-                element: <UpdateClass></UpdateClass>,
+                element:<InstructorRoute><UpdateClass></UpdateClass></InstructorRoute>
              
             },
             {

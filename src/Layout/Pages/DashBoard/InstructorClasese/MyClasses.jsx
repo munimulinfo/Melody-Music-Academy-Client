@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { FaRegTrashAlt, } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const MyClasses = () => {
     const { user } = useContext(AuthContext);
@@ -46,6 +47,9 @@ const MyClasses = () => {
 
     return (
         <div className='mt-16'>
+            <Helmet>
+                <title>Melody Music/Dashbord/myclases</title>
+            </Helmet>
             <h1 className='text-center text-3xl mt-8 mb-16'>Your All Add Classes Here<span className='text-purple-500'>({myclass?.length})</span></h1>
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-full">
@@ -60,7 +64,7 @@ const MyClasses = () => {
                             <th>status</th>
                             <th>enroll</th>
                             <th>update class</th>
-                            <th>delet</th>
+                            <th>delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,7 +77,7 @@ const MyClasses = () => {
                                 <td>{singleclass?.seats}</td>
                                 <td className={singleclass.status === 'pending' ? 'text-red-500 text-[18px] text-bold animate-pulse' : 'text-green-600 text-[18px] text-bold'}>{singleclass.status}</td>
                                 <td>{singleclass?.enroll}</td>
-                                <td><button onClick={() => navigate(`/dashboard/updateclass/${singleclass?._id}`)} className='bg-yellow-600  rounded text-white p-2'>update</button></td>
+                                <td><button onClick={() => navigate(`/dashboard/updateclass/${singleclass?._id}`)} className='bg-purple-600  rounded text-white p-2'>update</button></td>
                                 <td> <button onClick={() => handleDeletClass(singleclass?._id)} className='bg-red-500 w-10 rounded text-white p-2'><FaRegTrashAlt className=' text-2xl' /></button></td>
                             </tr>)
                         }

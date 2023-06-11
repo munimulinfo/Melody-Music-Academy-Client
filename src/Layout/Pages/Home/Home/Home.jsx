@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import PopularInstructor from '../PopularInstructor/PopularInstructor';
 import MusicClasses from '../MusicClasses/MusicClasses';
 import Aboutus from '../Aboutus/Aboutus';
+import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
 
@@ -18,6 +19,9 @@ const Home = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Melody Music/Home</title>
+            </Helmet>
             <Slider></Slider>
             <div className='lg:px-8 px-1'>
                 <h1 className='lg:text-5xl text-2xl text-center mt-24 font-extrabold font-sans'>Melody Music Academy<br/> Popular Classes</h1>

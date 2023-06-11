@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../../../../Providers/AuthProviders';
 import useAxiosSecure from '../../../../Hooks/useAxiosSequre';
 import { useQuery } from '@tanstack/react-query';
+import { Helmet } from 'react-helmet-async';
 
 const InstructorEnrool = () => {
 
@@ -14,6 +15,9 @@ const InstructorEnrool = () => {
     console.log(enrol);
     return (
         <div className='px-10 mt-24 mb-24'>
+            <Helmet>
+                <title>Melody Music/dashbord/myenroolclasses</title>
+            </Helmet>
              <h1 className='text-center text-3xl mt-8 mb-16'>Your All Enroll Classes Here<span className='text-purple-500'>({enrol?.length})</span></h1>
              <div className="overflow-x-auto">
                 <table className="table table-zebra w-full">
