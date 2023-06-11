@@ -4,6 +4,7 @@ import PopularClass from '../PopularClass/PopularClass';
 import useAxiosSecure from '../../../../Hooks/useAxiosSequre';
 import { useQuery } from '@tanstack/react-query';
 import PopularInstructor from '../PopularInstructor/PopularInstructor';
+import MusicClasses from '../MusicClasses/MusicClasses';
 
 const Home = () => {
 
@@ -29,6 +30,7 @@ const Home = () => {
                 </div>
             </div>
             <PopularInstructor></PopularInstructor>
+            <MusicClasses></MusicClasses>
 
         </div>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaArrowAltCircleUp, FaCopyright, FaFacebook, FaGoogle, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaArrowAltCircleUp, FaFacebook, FaGoogle, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -26,7 +26,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    <button  className='absolute bottom-6 right-6 text-4xl text-purple-600 hover:text-red-600' title='go top'><FaArrowAltCircleUp></FaArrowAltCircleUp></button>
+    <button  className='absolute bottom-6 right-6 text-4xl animate-bounce text-purple-600 hover:text-red-600' title='go top'><FaArrowAltCircleUp></FaArrowAltCircleUp></button>
     </div>
   );
 };
