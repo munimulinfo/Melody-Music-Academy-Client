@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import useAxiosSecure from '../../../Hooks/useAxiosSequre';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import useInstructor from '../../../Hooks/useInstructor';
 import { Helmet } from 'react-helmet-async';
 
 const Classes = () => {
+    const [disabled, setDisabled] = useState(false);
     const { user } = useContext(AuthContext);
     const [, refetch] = useSilectClass();
     const [isAdmin] = useAdmin();
@@ -22,6 +23,7 @@ const Classes = () => {
         return res.data;
     });
 
+    
     const aproved = allclass?.filter(classes => classes?.status === 'aproved');
 
     const handleSelectClass = (selectedClass, id) => {
@@ -83,6 +85,7 @@ const Classes = () => {
                             <div className="card-actions justify-end">                             
                                 {
                                      <button disabled={isAdmin || isInstructor } onClick={() => handleSelectClass(aprovedClass)} className="btn bg-purple-500 border-0 text-white ">Select</button>
+                                    //  <Button onPress={() => (props.addItemToCart(props.id), setDisabled(true))} disabled={disabled} title={!disabled ? "Selected" : "Select"}/>
                                 }
                             </div>
                         </div>
