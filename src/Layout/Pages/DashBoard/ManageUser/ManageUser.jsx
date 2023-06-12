@@ -106,7 +106,7 @@ const ManageUser = () => {
                                 <td>{user.role === 'admin' ? <button className="btn" disabled="disabled"><FaUserShield></FaUserShield></button> :
                                     <button onClick={() => handleMakeAdmin(user)} className="btn btn-ghost bg-pink-500  text-white"><FaUserShield></FaUserShield></button>
                                 }</td>
-                                <td>{user.role === 'admin' ? <button onClick={() => handleDelete(user)} className="btn btn-ghost bg-red-500  text-white " disabled="disabled" ><FaTrashAlt></FaTrashAlt></button>  :<button onClick={() => handleDelete(user)} className="btn btn-ghost bg-red-500  text-white"><FaTrashAlt></FaTrashAlt></button>}</td>
+                                <td>{user.role === 'admin' ? <button onClick={() => handleDelete(user)} className="btn btn-ghost bg-red-500  text-white " disabled="disabled" ><FaTrashAlt></FaTrashAlt></button> : <button onClick={() => handleDelete(user)} className="btn btn-ghost bg-red-500  text-white"><FaTrashAlt></FaTrashAlt></button>}</td>
                             </tr>)
                         }
 

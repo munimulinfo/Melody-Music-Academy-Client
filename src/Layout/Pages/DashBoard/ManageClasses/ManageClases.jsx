@@ -103,7 +103,7 @@ const ManageClases = () => {
                                 </td>
                                 <td>
                                     {
-                                        <button disabled={singleclass?.status === 'aproved'} onClick={() => handleAprovedClass(singleclass._id)} className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500   rounded text-white p-2'>Aproved</button>
+                                      singleclass.status === 'aproved' ?  <button disabled='disabled'  className=' bg-gray-300 rounded text-white p-2'>Aproved</button> :   <button  onClick={() => handleAprovedClass(singleclass._id)} className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500   rounded text-white p-2'>Aproved</button>
                                     }
                                 </td>
                                 <td><label htmlFor="my_modal_6" className="btn bg-purple-500 text-white">Deney</label></td>
