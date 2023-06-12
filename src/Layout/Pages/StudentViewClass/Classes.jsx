@@ -26,7 +26,7 @@ const Classes = () => {
     
     const aproved = allclass?.filter(classes => classes?.status === 'aproved');
 
-    const handleSelectClass = (selectedClass, id) => {
+    const handleSelectClass = (selectedClass) => {
         const { classname, image, instructoremail, instructorname, price, seats, _id, enroll } = selectedClass || {};
         if (user && user?.email) {
             const selectClass = { classname, image, instructoremail, email: user?.email, instructorname, price, seats, classid: _id, enroll, status: 'selected' };
@@ -84,8 +84,7 @@ const Classes = () => {
                             <p className='text-lg font-semibold font-sans '>Price: ${aprovedClass?.price}</p>
                             <div className="card-actions justify-end">                             
                                 {
-                                     <button disabled={isAdmin || isInstructor } onClick={() => handleSelectClass(aprovedClass)} className="btn bg-purple-500 border-0 text-white ">Select</button>
-                                    //  <Button onPress={() => (props.addItemToCart(props.id), setDisabled(true))} disabled={disabled} title={!disabled ? "Selected" : "Select"}/>
+                                     <button disabled={isAdmin || isInstructor } onClick={() => handleSelectClass(aprovedClass)} className="btn bg-purple-500 border-0 text-white ">Select</button>                                   
                                 }
                             </div>
                         </div>
