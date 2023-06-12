@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Providers/AuthProviders';
 
 const axiosSecure = axios.create({
-  baseURL: 'http://localhost:5000/', 
+  baseURL: 'https://music-insuruments-learn-scholl.vercel.app', 
 });
 
 const useAxiosSecure = () => {
@@ -24,8 +24,8 @@ const useAxiosSecure = () => {
       (response) => response,
       async (error) => {
         if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-          // await logOut();
-          // navigate('/login');
+        //   await logOut();
+        //   navigate('/login');
         }
         return Promise.reject(error);
       }

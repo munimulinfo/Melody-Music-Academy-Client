@@ -6,7 +6,6 @@ import useAdmin from '../../../../Hooks/useAdmin';
 import useInstructor from '../../../../Hooks/useInstructor';
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-    console.log(user);
     const [isAdmin] = useAdmin();
     const [isInstructor] = useInstructor();
     const handleLogOut = () => {
@@ -19,7 +18,7 @@ const Navbar = () => {
         <li><Link to='/instructors'>Instructors</Link></li>
         <li><Link to='/classes'>Classes</Link></li>
         {
-            isAdmin ? <li><Link to='/dashboard/manageuser'>DASHBOARD</Link></li> : isInstructor ? <li><Link to='/dashboard/myclasses'>DASHBOARD</Link></li> : <li><Link to='/dashboard/selectedclass'>DASHBOARD</Link></li>
+            isAdmin ? <li><Link to='/dashboard/manageuser'>DASHBOARD</Link></li> : isInstructor ? <li><Link to='/dashboard/myclasses'>DASHBOARD</Link></li> : user ? <li><Link to='/dashboard/selectedclass'>DASHBOARD</Link></li> : <li></li>
         }
     </>
     return (
@@ -35,13 +34,13 @@ const Navbar = () => {
                             <li><Link to='/instructors'>Instructors</Link></li>
                             <li><Link to='/classes'>Classes</Link></li>
                             {
-                                isAdmin ? <li><Link to='/dashboard/manageuser'>DASHBOARD</Link></li> : isInstructor ? <li><Link to='/dashboard/myclasses'>DASHBOARD</Link></li> : <li><Link to='/dashboard/selectedclass'>DASHBOARD</Link></li>
+                                isAdmin ? <li>< Link to='/dashboard/manageuser'>DASHBOARD</Link></li> : isInstructor ? <li><Link to='/dashboard/myclasses'>DASHBOARD</Link></li> : user ? <li ><Link to='/dashboard/selectedclass'>DASHBOARD</Link></li> :  <li></li>
                             }
                         </ul>
                     </div>
                     <img className='lg:w-20 w-8' src={logo} alt="logo" />
                     <span className='lg:text-2xl text-[8px]  lg:text-transparent bg-clip-text  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>Melody Music Academy</span>
-                </div>
+                </div >
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 flex uppercase ">
                         {navOptions}
@@ -52,7 +51,6 @@ const Navbar = () => {
                         user ? <img className='lg:w-14 w-10 rounded-full h-14 mr-4' src={user?.photoURL} alt="user" /> : <button className='btn btn-sm btn-secondary lg:btn-md'><Link to='/login'>Login</Link></button>
                     }
                     {
-
                         user && <button className='text-bold btn btn-xs btn-secondary lg:btn-md ' onClick={handleLogOut}>LogOut</button>
                     }
                 </div>

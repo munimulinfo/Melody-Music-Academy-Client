@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import useAxiosSecure from '../../../Hooks/useAxiosSequre';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -20,13 +20,15 @@ const Classes = () => {
     const { data: allclass = [] } = useQuery(['allclass'], async () => {
         const res = await axiosSecure.get('/allclasses')
         return res.data;
-    })
+    });
+
     const aproved = allclass?.filter(classes => classes?.status === 'aproved');
-    const handleSelectClass = selectedClass => {
+
+    const handleSelectClass = (selectedClass, id) => {
         const { classname, image, instructoremail, instructorname, price, seats, _id, enroll } = selectedClass || {};
         if (user && user?.email) {
-            const selectClass = { classname, image, instructoremail, email: user?.email, instructorname, price, seats, classid: _id, enroll};
-            fetch('http://localhost:5000/selectclass', {
+            const selectClass = { classname, image, instructoremail, email: user?.email, instructorname, price, seats, classid: _id, enroll, status: 'selected' };
+            fetch('https://music-insuruments-learn-scholl.vercel.app/selectclass', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -36,7 +38,7 @@ const Classes = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.insertedId) {
-                        refetch(); 
+                        refetch();
                         Swal.fire({
                             icon: 'success',
                             title: 'Class selected',
@@ -78,8 +80,10 @@ const Classes = () => {
                             <p className='text-lg font-semibold font-sans '>Instructor name : {aprovedClass?.instructorname}</p>
                             <p className='text-lg font-semibold font-sans '>Available seats: {aprovedClass?.seats}</p>
                             <p className='text-lg font-semibold font-sans '>Price: ${aprovedClass?.price}</p>
-                            <div className="card-actions justify-end">
-                                <button disabled={isAdmin || isInstructor} onClick={() => handleSelectClass(aprovedClass)} className="btn bg-purple-500 border-0 text-white ">Select</button>
+                            <div className="card-actions justify-end">                             
+                                {
+                                     <button disabled={isAdmin || isInstructor } onClick={() => handleSelectClass(aprovedClass)} className="btn bg-purple-500 border-0 text-white ">Select</button>
+                                }
                             </div>
                         </div>
                     </div>)

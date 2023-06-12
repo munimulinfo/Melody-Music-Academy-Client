@@ -18,7 +18,7 @@ const PopularInstructor = () => {
             <div className='grid lg:grid-cols-3 gap-10 mt-24 mb-24'>
                 {
                     popularInstructors?.map(singleInstructor => <div
-
+                          key={singleInstructor?._id}
                         className="card card-compact w-full bg-base-100 border border-purple-600 shadow drop-shadow-lg p-2">
                         <img className='w-full h-96 rounded-lg' src={singleInstructor?.image} alt="instrutor" />
                         <div className="card-body">

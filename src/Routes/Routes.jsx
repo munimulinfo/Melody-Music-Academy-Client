@@ -19,6 +19,7 @@ import UpdateClass from "../Layout/Pages/DashBoard/InstructorUpdateClass/UpdateC
 import Payment from "../Layout/Pages/DashBoard/PaymentClasses/Payment";
 import InstructorEnrool from "../Layout/Pages/DashBoard/InstructorEnrollClasses/InstructorEnrool";
 import EroorPage from "../ErorPage/EroorPage";
+import Allpayments from "../Layout/Pages/DashBoard/AllPayments/Allpayments";
 
 const router = createBrowserRouter([
     {
@@ -59,6 +60,11 @@ const router = createBrowserRouter([
             {
                 path: 'manageclasses',
                 element: <AdminRoute><ManageClases></ManageClases></AdminRoute>
+            },
+            {
+                path: 'allPaymentmanage',
+                element: <AdminRoute><Allpayments></Allpayments></AdminRoute>
+
             },
             {
                 path: 'addaclass',

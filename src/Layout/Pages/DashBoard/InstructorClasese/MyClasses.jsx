@@ -26,7 +26,7 @@ const MyClasses = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/allclass/${id}`, {
+                fetch(`https://music-insuruments-learn-scholl.vercel.app/allclass/${id}`, {
                     method: 'DELETE',
                 })
                     .then(res => res.json())
@@ -78,7 +78,7 @@ const MyClasses = () => {
                                 <td className={singleclass.status === 'pending' ? 'text-red-500 text-[18px] text-bold animate-pulse' : 'text-green-600 text-[18px] text-bold'}>{singleclass.status}</td>
                                 <td>{singleclass?.enroll}</td>
                                 <td><button onClick={() => navigate(`/dashboard/updateclass/${singleclass?._id}`)} className='bg-purple-600  rounded text-white p-2'>update</button></td>
-                                <td> <button onClick={() => handleDeletClass(singleclass?._id)} className='bg-red-500 w-10 rounded text-white p-2'><FaRegTrashAlt className=' text-2xl' /></button></td>
+                                <td>{singleclass.status === 'aproved' ? <button className='btnt w-10 rounded ' title='your class is aproved you not delet this class' disabled="disabled"><FaRegTrashAlt className=' text-2xl' /></button> :  <button onClick={() => handleDeletClass(singleclass?._id)} className='bg-red-500 w-10 rounded text-white p-2'><FaRegTrashAlt className=' text-2xl' /></button>}</td>
                             </tr>)
                         }
                     </tbody>

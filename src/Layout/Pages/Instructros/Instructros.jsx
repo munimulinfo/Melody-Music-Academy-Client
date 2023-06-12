@@ -11,7 +11,6 @@ const Instructros = () => {
         return res.data;
     })
     const instructores = instructors?.filter(allinstructor => allinstructor?.role === 'instructor');
-    console.log(instructores);
 
 
     return (

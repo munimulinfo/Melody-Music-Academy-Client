@@ -19,7 +19,7 @@ const Sleceted = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed){
-                fetch(`http://localhost:5000/selectclass/${id}`,{
+                fetch(`https://music-insuruments-learn-scholl.vercel.app/selectclass/${id}`,{
                     method: 'DELETE',
                 })
                     .then(res => res.json())
@@ -56,7 +56,6 @@ const Sleceted = () => {
                             <th>Instructor Name</th>
                             <th>Instructor Email</th>
                             <th>price</th>
-                            <th>Available seats</th>
                             <th>Payment</th>
                             <th>delet</th>
                         </tr>
@@ -70,7 +69,6 @@ const Sleceted = () => {
                                 <td>{singleclass?.instructorname}</td>
                                 <td>{singleclass?.instructoremail}</td>
                                 <td>${singleclass?.price}</td>
-                                <td>{singleclass.seats}</td>
                                 <td><button onClick={ () => navigate(`/dashboard/payment/${singleclass?._id}`)} className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500   rounded text-white p-2'>PAY</button></td>
                                 <td><button onClick={() => handleDeletSlectClass(singleclass?._id)} className='bg-red-500 w-10 rounded text-white p-2'><FaRegTrashAlt className=' text-2xl' /></button></td>
                             </tr>)

@@ -55,7 +55,7 @@ const Login = () => {
                     timer: 1500
                 });
                 const saveUser = { name: loggedInUser?.displayName, email: loggedInUser?.email , image: loggedInUser?.photoURL }
-                fetch('http://localhost:5000/users', {
+                fetch('https://music-insuruments-learn-scholl.vercel.app/users',{
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
