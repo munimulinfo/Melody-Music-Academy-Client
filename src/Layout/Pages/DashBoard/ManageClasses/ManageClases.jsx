@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { Helmet } from 'react-helmet-async';
-
+import { useForm } from 'react-hook-form';
 const ManageClases = () => {
     const [axiosSecure] = useAxiosSecure();
     const { data: allclass = [], refetch } = useQuery(['allclass'], async () => {
@@ -16,7 +16,6 @@ const ManageClases = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if (data.modifiedCount) {
                     refetch();
                     Swal.fire({
@@ -45,7 +44,6 @@ const ManageClases = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-
                         if (data.deletedCount > 0) {
                             refetch();
                             Swal.fire(
@@ -57,12 +55,7 @@ const ManageClases = () => {
                     })
             }
         })
-
-
     };
-
-
-
 
     console.log(allclass);
     return (
@@ -103,7 +96,7 @@ const ManageClases = () => {
                                 </td>
                                 <td>
                                     {
-                                      singleclass.status === 'aproved' ?  <button disabled='disabled'  className=' bg-gray-300 rounded text-white p-2'>Aproved</button> :   <button  onClick={() => handleAprovedClass(singleclass._id)} className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500   rounded text-white p-2'>Aproved</button>
+                                        singleclass.status === 'aproved' ? <button disabled='disabled' className=' bg-gray-300 rounded text-white p-2'>Aproved</button> : <button onClick={() => handleAprovedClass(singleclass._id)} className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500   rounded text-white p-2'>Aproved</button>
                                     }
                                 </td>
                                 <td><label htmlFor="my_modal_6" className="btn bg-purple-500 text-white">Deney</label></td>
@@ -118,7 +111,17 @@ const ManageClases = () => {
                 <input type="checkbox" id="my_modal_6" className="modal-toggle" />
                 <div className="modal">
                     <div className="modal-box">
-                        <input type="text" placeholder='type you feadback' className='input w-96 h-16 input-bordered ' />
+                        <from>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Type your Feadback!!</span>
+                                </label>
+                                <input type="text" placeholder="type here" className="input input-bordered" />
+                            </div>
+                            <div className="form-control mt-6">
+                                <input type="submit" value="Submit Feadback" className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border-0 text-white" />
+                            </div>
+                        </from>
                         <div className="modal-action">
                             <label htmlFor="my_modal_6" className="btn btn-primary">close</label>
                         </div>

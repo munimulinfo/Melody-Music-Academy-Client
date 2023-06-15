@@ -38,11 +38,12 @@ const InstructorEnrool = () => {
                                 <td><img className='w-10 rounded' src={singlenroll?.image} alt="class" /> </td>
                                 <td>{singlenroll?.classname}</td>
                                 <td>{singlenroll?.price}</td>   
-                                <td>{singlenroll?.studentName}</td>                
+                                <td>{singlenroll?.studentNmae}</td>                
                                 <td>{singlenroll?.email}</td>
                             </tr>)
                         }
                     </tbody>
+
                 </table>
             </div>
             

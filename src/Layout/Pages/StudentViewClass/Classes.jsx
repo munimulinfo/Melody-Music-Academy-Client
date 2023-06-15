@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext} from 'react';
 import useAxiosSecure from '../../../Hooks/useAxiosSequre';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -7,28 +7,27 @@ import useSilectClass from '../../../Hooks/useSelectClass';
 import Swal from 'sweetalert2';
 import useAdmin from '../../../Hooks/useAdmin';
 import useInstructor from '../../../Hooks/useInstructor';
-import { Helmet } from 'react-helmet-async';
+import { Helmet }from 'react-helmet-async';
 
 const Classes = () => {
-    const [disabled, setDisabled] = useState(false);
     const { user } = useContext(AuthContext);
-    const [, refetch] = useSilectClass();
+    const [selectclass, refetch] = useSilectClass();
+    console.log(selectclass);
+    const data = selectclass?.map(singleclass => singleclass?.classid)
     const [isAdmin] = useAdmin();
     const [isInstructor] = useInstructor();
     const navigate = useNavigate();
     const location = useLocation();
     const [axiosSecure] = useAxiosSecure();
     const { data: allclass = [] } = useQuery(['allclass'], async () => {
-        const res = await axiosSecure.get('/allclasses')
+        const res = await axiosSecure.get('/allclasses');
         return res.data;
     });
 
-    
     const aproved = allclass?.filter(classes => classes?.status === 'aproved');
-
     const handleSelectClass = (selectedClass) => {
         const { classname, image, instructoremail, instructorname, price, seats, _id, enroll } = selectedClass || {};
-        if (user && user?.email) {
+        if (user && user?.email) { 
             const selectClass = { classname, image, instructoremail, email: user?.email, instructorname, price, seats, classid: _id, enroll, status: 'selected' };
             fetch('https://music-insuruments-learn-scholl.vercel.app/selectclass', {
                 method: 'POST',
@@ -39,6 +38,7 @@ const Classes = () => {
             })
                 .then(res => res.json())
                 .then(data => {
+
                     if (data.insertedId) {
                         refetch();
                         Swal.fire({
@@ -75,16 +75,16 @@ const Classes = () => {
                 {
                     aproved?.map(aprovedClass => <div
                         key={aprovedClass?._id}
-                        className="card card-compact w-full border border-purple-300  bg-base-100 drop-shadow-lg ">
+                        className={`card card-compact w-full border border-purple-300   drop-shadow-lg ${aprovedClass?.seats == 0 ? 'bg-red-400' : 'bg-base-100'} `}>
                         <figure><img className='w-full h-64' src={aprovedClass?.image} alt="classimage" /></figure>
                         <div className="card-body">
                             <h2 className='text-lg font-semibold font-sans '>Class Name : {aprovedClass?.classname}</h2>
                             <p className='text-lg font-semibold font-sans '>Instructor name : {aprovedClass?.instructorname}</p>
                             <p className='text-lg font-semibold font-sans '>Available seats: {aprovedClass?.seats}</p>
                             <p className='text-lg font-semibold font-sans '>Price: ${aprovedClass?.price}</p>
-                            <div className="card-actions justify-end">                             
+                            <div className="card-actions justify-end">
                                 {
-                                     <button disabled={isAdmin || isInstructor } onClick={() => handleSelectClass(aprovedClass)} className="btn bg-purple-500 border-0 text-white ">Select</button>                                   
+                                    <button disabled={isAdmin || isInstructor || data.includes(aprovedClass._id) || aprovedClass?.seats == 0} onClick={() => handleSelectClass(aprovedClass)} className="btn bg-purple-500 border-0 text-white ">Select</button>
                                 }
                             </div>
                         </div>

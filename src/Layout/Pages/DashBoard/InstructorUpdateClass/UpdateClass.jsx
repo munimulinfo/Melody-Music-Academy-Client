@@ -9,6 +9,7 @@ const UpdateClass = () => {
     const { id } = lodedid;
     const [axiosSecure] = useAxiosSecure();
     const { data: singleclass = [], refetch } = useQuery(['singleclass'], async () => {
+      
         const res = await axiosSecure.get(`/singleclass/${id}`)
         return res.data;
     });
